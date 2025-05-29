@@ -1,0 +1,409 @@
+body {
+  background-color: #000;
+  color: #FF351b;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 1rem;
+}
+
+
+.nav-links li a.active {
+  background-color: #FF351b;
+  color: black;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000;
+  border-bottom: 2px solid #FF351b;
+  font-size: 18px;
+}
+
+.title {
+  font-weight: bold;
+  color: #FF351b;
+  margin-right: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #FF351b;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.nav-links li a:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.nav-links i {
+  margin-right: 6px;
+}
+
+
+.section-title {
+  font-size: 2.5rem;
+  text-align: left;
+  margin: 30px 0 10px 20px;
+  color: #FF351b;
+  text-shadow: 0 0 10px #FF351b;
+}
+
+.encryption-container {
+  background-color: #010101;
+  border: 2px solid #FF351b;
+  box-shadow: 0 0 15px #FF351b;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  transition: all 0.3s ease;
+}
+
+.encryption-container:hover {
+    background-color: #001100;
+    border-color: #FF351b;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #FF351b;
+  }
+
+.card-header {
+  background-color: #011;
+  padding: 10px;
+  font-size: 1.3rem;
+  color: #FF351b;
+  border-bottom: 1px solid #FF351b;
+  margin-bottom: 15px;
+}
+
+.tab-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  background-color: transparent;
+  color: #FF351b;
+  border: 1px solid #FF351b;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.tab.active {
+  background-color: #FF351b;
+  color: #000;
+}
+
+.tab:hover {
+  background-color: #FF351b;
+  color: #000;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+
+select {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #FF351b;
+  border: 1px solid #FF351b;
+  border-radius: 5px;
+}
+
+.action-button {
+  background-color: #000;
+  color: #FF351b;
+  padding: 12px 20px;
+  border: 2px solid #FF351b;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.action-button:hover {
+  background-color: #FF351b;
+  color: #000;
+  box-shadow: 0 0 10px #FF351b;
+}
+
+
+/*encrypt*/
+
+.main-container {
+  border: 2px solid #FF351b;
+  padding: 1.5rem;
+  background-color: #000;
+  box-shadow: 0 0 20px #FF351b;
+}
+
+.tab-bar {
+  display: flex;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #FF351b;
+}
+
+.tab-button {
+  background-color: transparent;
+  border: 1px solid #FF351b;
+  color: #FF351b;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background-color: #FF351b;
+  color: #000;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+textarea {
+  background-color: #000;
+  color: #FF351b;
+  border: 1px solid #FF351b;
+  padding: 0.5rem;
+  width: 100%;
+  resize: vertical;
+}
+
+textarea::placeholder {
+  color: #FF351b;
+  opacity: 0.5;
+}
+
+.encrypt-button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid #FF351b;
+  color: #FF351b;
+  font-weight: bold;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.encrypt-button:hover {
+  background-color: #FF351b;
+  color: #000;
+}
+
+/*diffie*/
+
+.container {
+  border: 2px solid #FF351b;
+  padding: 10px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px #FF351b;
+}
+
+h3, h4 {
+  color: #FF351b;
+  margin-bottom: 10px;
+}
+
+input, textarea, button {
+  background-color: #000;
+  color: #FF351b;
+  border: 1px solid #FF351b;
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.flex > div {
+  flex: 1;
+}
+
+.tabs {
+  display: flex;
+  background-color: #001100;
+  padding: 5px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #FF351b;
+  background-color: #002200;
+  color: #FF351b;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #FF351b;
+  color: #000;
+}
+
+.status {
+  background-color: #002200;
+  border: 1px solid #FF351b;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.sub-navbar {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tab-button {
+  background-color: #222;
+  color: #FF351b;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.tab-button.active {
+  background-color: #FF351b;
+}
+
+.key-container {
+  border: 1px solid #FF351b;
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #111;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #FF351b;
+}
+
+.key-container h4 {
+  margin-top: 20px;
+  margin-bottom: 5px;
+  color: #FF351b;
+}
+
+.key-container textarea {
+  height: 120px;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.key-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.key-buttons button {
+  background-color: transparent;
+  border: 1px solid #FF351b;
+  color: #FF351b;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.key-buttons button:hover {
+  background-color: #FF351b;
+  color: black;
+}
+
+ .crypto-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+    background-color: #000;
+    border-top: 2px solid #FF351b;
+  }
+
+  .crypto-box {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid #FF351b;
+    background-color: #000;
+    box-sizing: border-box;
+    min-height: 100%;
+    transition: all 0.3s ease;
+  }
+
+  .crypto-box:hover {
+    background-color: #001100;
+    border-color: #FF351b;
+    transform: scale(1.02);
+    box-shadow: 0 0 10px #FF351b;
+  }
+
+  .crypto-title {
+    border-bottom: 2px solid #FF351b;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+
+  ol, ul {
+    padding-left: 20px;
+  }
+
+  .shared-flex {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.shared-column {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+textarea {
+  background-color: #001100;
+  color: #FF351b;
+  border: 1px solid #FF351b;
+  padding: 10px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.info-banner {
+  background-color: #003300;
+  padding: 10px;
+  border: 1px solid #FF351b;
+  margin-bottom: 20px;
+}
+
+

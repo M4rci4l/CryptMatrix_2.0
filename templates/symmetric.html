@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Symmetric Encryption Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='symmetric.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="title">[CryptMatrix 2.0]</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('roothome_page') }}"><i class="icon-home">🏠</i> root@home</a></li>
+      <li><a href="{{ url_for('symmetric_page') }}" class="active"><i class="icon-shield">🛡️</i> symmetric</a></li>
+      <li><a href="{{ url_for('asymmetric_page') }}"><i class="icon-key">🔑</i> asymmetric</a></li>
+      <li><a href="{{ url_for('hashing_page') }}"><i class="icon-hash">#</i> hashing</a></li>
+      <li><a href="{{ url_for('algorithms_page') }}"><i class="icon-info">ℹ️</i> algorithms</a></li>
+    </ul>
+  </nav>
+
+  <div class="container2">
+    <h1>Symmetric Encryption</h1>
+    <div class="card2">
+      <h2>Encrypt or Decrypt Data</h2>
+
+      <form id="symmetricForm" method="POST">
+        <div class="form-row">
+          <label>Algorithm</label>
+          <select name="algorithm">
+            <option value="AES">AES (Advanced Encryption Standard)</option>
+            <option value="DES">DES (Data Encryption Standard)</option>
+            <option value="Blowfish">Blowfish</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Action</label>
+          <select name="action">
+            <option value="Encrypt">Encrypt</option>
+            <option value="Decrypt">Decrypt</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Mode</label>
+          <select name="mode">
+            <option value="Text">Text</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Encryption/Decryption Key</label>
+          <input name="key" type="password" placeholder="Enter your key here" />
+        </div>
+
+        <div class="form-row">
+          <label>Text</label>
+          <textarea name="text" rows="5" placeholder="Enter text to encrypt/decrypt here"></textarea>
+        </div>
+
+        <button type="submit">PROCESS</button>
+      </form>
+
+      <div class="result-container" id="resultContainer" style="display: none;">
+        <h2>Result</h2>
+        <label>Output</label>
+        <textarea id="resultBox" readonly></textarea>
+        <button onclick="copyResult()">COPY TO CLIPBOARD</button>
+      </div>
+    </div>
+
+    <div class="algorithm-section">
+      <div class="algorithm-card">
+        <h3>AES</h3>
+        <p>Advanced Encryption Standard is a symmetric block cipher chosen by the U.S. government to protect classified information.</p>
+        <ul>
+          <li>Block size: 128 bits</li>
+          <li>Key sizes: 128, 192, or 256 bits</li>
+          <li>Very secure and widely used</li>
+        </ul>
+      </div>
+      <div class="algorithm-card">
+        <h3>DES</h3>
+        <p>Data Encryption Standard is an older symmetric block cipher that was once widely used.</p>
+        <ul>
+          <li>Block size: 64 bits</li>
+          <li>Key size: 56 bits (effectively)</li>
+          <li>Now considered insecure due to small key size</li>
+        </ul>
+      </div>
+      <div class="algorithm-card">
+        <h3>Blowfish</h3>
+        <p>Blowfish is a symmetric block cipher designed by Bruce Schneier as a fast, free alternative to existing encryption algorithms.</p>
+        <ul>
+          <li>Block size: 64 bits</li>
+          <li>Key size: 32 to 448 bits</li>
+          <li>Known for its speed and effectiveness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("symmetricForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+
+      fetch("/symmetric_process", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const resultBox = document.getElementById("resultBox");
+          const container = document.getElementById("resultContainer");
+
+          if (data.result) {
+            resultBox.value = data.result;
+            container.style.display = "block";
+          } else if (data.error) {
+            resultBox.value = "Error: " + data.error;
+            container.style.display = "block";
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    });
+
+    function copyResult() {
+      const resultBox = document.getElementById("resultBox");
+      resultBox.select();
+      document.execCommand("copy");
+      alert("Copied to clipboard!");
+    }
+  </script>
+</body>
+</html>

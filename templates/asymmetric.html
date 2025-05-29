@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asymmetric Encryption Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='asymmetric.css') }}">
+</head>
+<body>
+
+  <nav class="navbar">
+    <span class="title">[CryptMatrix 2.0]</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('roothome_page') }}"><i class="icon-home">🏠</i> root@home</a></li>
+      <li><a href="{{ url_for('symmetric_page') }}"><i class="icon-shield">🛡️</i> symmetric</a></li>
+      <li><a href="{{ url_for('asymmetric_page') }}" class="active"><i class="icon-key">🔑</i> asymmetric</a></li>
+      <li><a href="{{ url_for('hashing_page') }}"><i class="icon-hash">#</i> hashing</a></li>
+      <li><a href="{{ url_for('algorithms_page') }}"><i class="icon-info">ℹ️</i> algorithms</a></li>
+    </ul>
+  </nav>
+
+  <div class="section-title">Asymmetric Encryption</div>
+
+  <div class="sub-navbar">
+    <button class="tab-button active" data-tab="key-gen">🔐 Generate Key</button>
+    <button class="tab-button" data-tab="encrypt">🔒 Encrypt</button>
+    <button class="tab-button" data-tab="decrypt">🔓 Decrypt</button>
+    <button class="tab-button" data-tab="dh">🤝 Diffie-Hellman</button>
+  </div>
+
+  <div class="encryption-container">
+    <!-- Key Generation -->
+    <div class="tab-content" id="key-gen" style="display: block;">
+      <div class="form-section">
+        <h3>Key Generation</h3>
+        <label for="algorithm">Algorithm</label>
+        <select id="algorithm">
+          <option>RSA ( Rivest – Shamir – Adleman )</option>
+          <option>ECC ( Elliptic Curve Cryptography )</option>
+        </select>
+        <button id="generate-key-btn" class="encrypt-button">GENERATE KEY PAIR</button>
+      </div>
+
+      <div id="key-output" class="key-container" style="display: none;">
+        <h4>Public Key</h4>
+        <textarea id="output-public" readonly></textarea>
+        <div class="key-buttons">
+          <button onclick="copyToClipboard('output-public')">Copy Public Key</button>
+          <button onclick="saveToFile('output-public', 'public_key.txt')">Save as File</button>
+        </div>
+        <h4>Private Key</h4>
+        <textarea id="output-private" readonly></textarea>
+        <div class="key-buttons">
+          <button onclick="copyToClipboard('output-private')">Copy Private Key</button>
+          <button onclick="saveToFile('output-private', 'private_key.txt')">Save as File</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Encryption -->
+    <div class="tab-content" id="encrypt" style="display: none;">
+      <div class="form-section">
+        <h3>Encryption</h3>
+        <label for="plaintext">Plain Text</label>
+        <textarea id="plaintext" rows="4"></textarea>
+        <label for="publicKey">Public Key</label>
+        <textarea id="publicKey" rows="4"></textarea>
+        <button id="encrypt-btn" class="encrypt-button">ENCRYPT</button>
+      </div>
+    </div>
+
+    <!-- Decryption -->
+    <div class="tab-content" id="decrypt" style="display: none;">
+      <div class="form-section">
+        <h3>Decryption</h3>
+        <label for="cipherText">Cipher Text</label>
+        <textarea id="cipherText" rows="4"></textarea>
+        <label for="privateKey">Private Key</label>
+        <textarea id="privateKey" rows="4"></textarea>
+        <button id="decrypt-btn" class="encrypt-button">DECRYPT</button>
+      </div>
+    </div>
+
+    <!-- Diffie-Hellman -->
+    <div class="tab-content" id="dh" style="display: none;">
+      <div class="form-section">
+        <h3>Diffie-Hellman Demo</h3>
+        <label>Prime Number (p)</label>
+        <input id="prime-p" type="number" value="23">
+        <label>Generator (g)</label>
+        <input id="generator-g" type="number" value="5">
+
+        <h4>Alice</h4>
+        <input id="alice-private" type="text" placeholder="Private Key (a)">
+        <input id="alice-public" type="text" placeholder="Public Key (A)">
+        <input id="alice-secret" type="text" placeholder="Shared Secret (B^a mod p)">
+
+        <h4>Bob</h4>
+        <input id="bob-private" type="text" placeholder="Private Key (b)">
+        <input id="bob-public" type="text" placeholder="Public Key (B)">
+        <input id="bob-secret" type="text" placeholder="Shared Secret (A^b mod p)">
+      </div>
+
+      <div class="form-section">
+        <h3>Shared Secret Explanation</h3>
+        <p><strong>Alice</strong> computes <code>B<sup>a</sup> mod p</code>: <span id="explain-alice-secret">[Not calculated]</span></p>
+        <p><strong>Bob</strong> computes <code>A<sup>b</sup> mod p</code>: <span id="explain-bob-secret">[Not calculated]</span></p>
+      </div>
+
+      <!-- 🔐 Symmetric Encryption Using Shared Secret -->
+      <div class="form-section" style="margin-top: 40px;">
+        <h3>🔐 Encryption & Decryption with Shared Secret</h3>
+        <div class="info-banner">
+          <span>ℹ️ This demonstrates how the shared secret can be used for symmetric encryption.</span>
+        </div>
+        <div class="shared-flex">
+          <div class="shared-column">
+            <label><strong>Plain Text</strong></label>
+            <textarea id="plain-text" placeholder="Enter text to encrypt"></textarea>
+            <button onclick="encryptText()">ENCRYPT</button>
+            <label><strong>Cipher Text</strong></label>
+            <textarea id="cipher-text" readonly></textarea>
+          </div>
+          <div class="shared-column">
+            <label><strong>Encrypted Text</strong></label>
+            <textarea id="encrypted-text" placeholder="Enter text to decrypt"></textarea>
+            <button onclick="decryptText()">DECRYPT</button>
+            <label><strong>Decrypted Text</strong></label>
+            <textarea id="decrypted-text" readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="crypto-container">
+    <div class="crypto-box">
+      <h2 class="crypto-title">RSA</h2>
+      <p>RSA (Rivest–Shamir–Adleman) is one of the first public-key cryptosystems and is widely used for secure data transmission.</p>
+      <p><strong>How it works:</strong></p>
+      <ol>
+        <li>Generate two large prime numbers</li>
+        <li>Compute their product (n) and a derived value (φ)</li>
+        <li>Choose an integer e that is coprime to φ</li>
+        <li>Compute d as the modular multiplicative inverse of e modulo φ</li>
+      </ol>
+      <p>The public key consists of (n, e) and the private key consists of (n, d).</p>
+      <p>Security relies on the practical difficulty of factoring the product of two large prime numbers.</p>
+    </div>
+
+    <div class="crypto-box">
+      <h2 class="crypto-title">ECC</h2>
+      <p>Elliptic Curve Cryptography (ECC) is an approach to public-key cryptography based on the algebraic structure of elliptic curves over finite fields.</p>
+      <p><strong>Advantages over RSA:</strong></p>
+      <ul>
+        <li>Smaller key sizes for the same security level</li>
+        <li>Faster computations</li>
+        <li>Lower CPU consumption, memory usage, and battery usage</li>
+      </ul>
+      <p>ECC is often used in constrained environments like mobile devices and smart cards.</p>
+      <p>Security relies on the difficulty of the Elliptic Curve Discrete Logarithm Problem (ECDLP).</p>
+    </div>
+
+    <div class="crypto-box">
+      <h2 class="crypto-title">Diffie-Hellman</h2>
+      <p>Diffie–Hellman key exchange is a method that allows two parties to jointly establish a shared secret key over an insecure communication channel.</p>
+      <p><strong>How it works:</strong></p>
+      <ol>
+        <li>Both parties agree on public parameters (p, g)</li>
+        <li>Each party generates a private key and computes a public key</li>
+        <li>Parties exchange public keys</li>
+        <li>Each party computes the same shared secret key using their private key and the other's public key</li>
+      </ol>
+      <p>Not used for direct encryption but for establishing a shared secret that can be used for symmetric encryption.</p>
+      <p>Security relies on the computational Diffie–Hellman problem and the discrete logarithm problem.</p>
+    </div>
+  </div>
+
+<script>
+  document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+      button.classList.add('active');
+      document.getElementById(button.dataset.tab).style.display = 'block';
+    });
+  });
+
+  document.getElementById('generate-key-btn').addEventListener('click', async () => {
+    const algorithm = document.getElementById('algorithm').value;
+    const response = await fetch('/asymmetric_generate_keys', {
+      method: 'POST',
+      body: new URLSearchParams({ algorithm })
+    });
+    const data = await response.json();
+    if (data.public_key && data.private_key) {
+      document.getElementById('output-public').value = data.public_key;
+      document.getElementById('output-private').value = data.private_key;
+      document.getElementById('key-output').style.display = 'block';
+    } else {
+      alert('Error: ' + data.error);
+    }
+  });
+
+  function copyToClipboard(id) {
+    const text = document.getElementById(id);
+    text.select();
+    text.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(text.value);
+  }
+
+  function saveToFile(id, filename) {
+    const blob = new Blob([document.getElementById(id).value], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+  }
+
+  document.getElementById('encrypt-btn').addEventListener('click', async () => {
+    const message = document.getElementById('plaintext').value;
+    const public_key = document.getElementById('publicKey').value;
+const response = await fetch('/asymmetric_encrypt', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ message, public_key })
+});
+    const data = await response.json();
+    alert(data.encrypted ? 'Encrypted:\n' + data.encrypted : 'Error: ' + data.error);
+  });
+
+  document.getElementById('decrypt-btn').addEventListener('click', async () => {
+    const encrypted = document.getElementById('cipherText').value;
+    const private_key = document.getElementById('privateKey').value;
+    const response = await fetch('/asymmetric_decrypt', {
+      method: 'POST',
+      body: new URLSearchParams({ encrypted, private_key })
+    });
+    const data = await response.json();
+    alert(data.decrypted ? 'Decrypted:\n' + data.decrypted : 'Error: ' + data.error);
+  });
+
+  const dhInputs = ['prime-p', 'generator-g', 'alice-private', 'bob-private'];
+  dhInputs.forEach(id => {
+    document.getElementById(id).addEventListener('input', updateDH);
+  });
+
+  async function updateDH() {
+    const p = document.getElementById('prime-p').value;
+    const g = document.getElementById('generator-g').value;
+    const a = document.getElementById('alice-private').value;
+    const b = document.getElementById('bob-private').value;
+
+    if (!p || !g) return;
+
+    const response = await fetch('/diffie_hellman', {
+      method: 'POST',
+      body: new URLSearchParams({ p, g, a, b }),
+    });
+
+    const data = await response.json();
+    if (data.error) return;
+
+    document.getElementById('alice-private').value = data.alice_private_key;
+    document.getElementById('alice-public').value = data.alice_public_key;
+    document.getElementById('alice-secret').value = data.alice_shared_secret;
+
+    document.getElementById('bob-private').value = data.bob_private_key;
+    document.getElementById('bob-public').value = data.bob_public_key;
+    document.getElementById('bob-secret').value = data.bob_shared_secret;
+
+    document.getElementById('explain-alice-secret').textContent = data.alice_shared_secret;
+    document.getElementById('explain-bob-secret').textContent = data.bob_shared_secret;
+  }
+
+  async function encryptText() {
+    const plainText = document.getElementById('plain-text').value;
+    const response = await fetch('/api/encrypt_shared', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: plainText })
+    });
+    const result = await response.json();
+    document.getElementById('cipher-text').value = result.encrypted || result.error;
+  }
+
+  async function decryptText() {
+    const encryptedText = document.getElementById('encrypted-text').value;
+    const response = await fetch('/api/decrypt_shared', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ encrypted: encryptedText })
+    });
+    const result = await response.json();
+    document.getElementById('decrypted-text').value = result.decrypted || result.error;
+  }
+</script>
+
+</body>
+</html>

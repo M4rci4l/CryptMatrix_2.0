@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Algorithms Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='algorithms.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="title">[CryptMatrix 2.0]</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('roothome_page') }}"><i class="icon-home">🏠</i> root@home</a></li>
+      <li><a href="{{ url_for('symmetric_page') }}"><i class="icon-shield">🛡️</i> symmetric</a></li>
+      <li><a href="{{ url_for('asymmetric_page') }}"><i class="icon-key">🔑</i> asymmetric</a></li>
+      <li><a href="{{ url_for('hashing_page') }}"><i class="icon-hash">#</i> hashing</a></li>
+      <li><a href="{{ url_for('algorithms_page') }}" class="active"><i class="icon-info">ℹ️</i> algorithms</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+        <h1>Symmetric Encryption Algorithms</h1>
+
+        <button class="dropdown-btn">AES (Advanced Encryption Standard)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview:</strong> AES is a symmetric block cipher standardized by NIST in 2001 after a 5-year selection process. It replaced DES as the standard for encryption in the U.S. government and is now widely used worldwide.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Block size: 128 bits (16 bytes)</li>
+                <li>Key sizes: 128, 192, or 256 bits</li>
+                <li>Based on substitution-permutation network</li>
+                <li>Operates on a 4×4 array of bytes (the state)</li>
+                <p><strong>Process Description</strong></p>
+                <p><strong>AES encryption consists of several rounds of processing, where each round performs substitution, permutation, mixing, and key addition operations:</strong></p>
+                <ol>
+                    <li>Key Expansion: The cipher key is expanded into a key schedule</li>
+                    <li>Initial Round: AddRoundKey - Each byte of the state is combined with the round key</li>
+                    <li>Main Rounds: (repeated for 9, 11, or 13 times depending on key length)</li>
+                        <ol>
+                            <li>SubBytes - A non-linear substitution where each byte is replaced with another</li>
+                            <li>ShiftRows - A transposition where each row is shifted cyclically</li>
+                            <li>MixColumns - A mixing operation that operates on the columns</li>
+                            <li>AddRoundKey - Each byte is combined with the round key</li>
+                        </ol>
+                    <li>Final Round: (excludes MixColumns)</li>
+                        <ol>
+                            <li>SubBytes</li>
+                            <li>ShiftRows</li>
+                            <li>AddRoundKey</li>
+                        </ol>
+                </ol>
+                    <p><strong>Use Cases</strong></p> 
+                    <li>Secure communication over the internet (TLS/SSL)</li>
+                    <li>File and disk encryption</li>
+                    <li>VPNs and secure messaging applications</li>
+                    <li>Protection of sensitive government and military information</li>
+
+                    <p><strong>Pseudocode</strong></p>
+                    <textarea id="output-public" readonly>AES-Encrypt(byte in[16], byte out[16], key_array w[Nb*(Nr+1)])
+begin
+    byte state[4,Nb]
+    state = in
+    
+    AddRoundKey(state, w[0, Nb-1])
+    
+    for round = 1 to Nr-1
+        SubBytes(state)
+        ShiftRows(state)
+        MixColumns(state)
+        AddRoundKey(state, w[round*Nb, (round+1)*Nb-1])
+    end for
+    
+    SubBytes(state)
+    ShiftRows(state)
+    AddRoundKey(state, w[Nr*Nb, (Nr+1)*Nb-1])
+    
+    out = state
+end</textarea>
+                </ul>
+            </pre>
+        </div>
+
+        <button class="dropdown-btn">DES (Data Encryption Standard)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview:</strong> DES was developed in the early 1970s at IBM and was standardized by NIST (then NBS) in 1977. It was widely used until the late 1990s when it was replaced by more secure algorithms like AES.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Block size: 64 bits</li>
+                <li>Key size: 56 bits (effectively, though described as 64 bits with 8 parity bits)</li>
+                <li>16 rounds of Feistel network operations</li>
+                <p><strong>Process Description</strong></p>
+                <p><strong>DES encryption follows these steps:</strong></p>
+                <ol>
+                    <li>Initial permutation of the input block</li>
+                    <li>16 rounds of processing, where each round:</li>
+                        <ol>
+                            <li>Splits the block into left and right halves</li>
+                            <li>XORs the result with the left half to produce a new right half</li>
+                            <li>Applies the Feistel (F) function to the right half</li>
+                            <li>Swaps the halves for the next round</li>
+                        </ol>
+                    <li>Applies inverse initial permutation to produce the output</li>
+                    <p><strong>Security Concerns</strong></p>
+                    <p><strong>DES is now considered cryptographically broken due to its small key size (56 bits), which can be brute-forced with modern computing power. Triple DES (3DES) was developed to address this, but AES is now the preferred standard.</strong></p>
+                </ol>
+                    <p><strong>Use Cases</strong></p> 
+                    <li>Government and financial sector data protection</li>
+                    <li>Early secure communications</li>
+                    <li>Early VPN implementations</li>
+
+                    <p><strong>Pseudocode</strong></p>
+                    <textarea id="output-public" readonly>AES-Encrypt(byte in[16], byte out[16], key_array w[Nb*(Nr+1)])
+begin
+    byte state[4,Nb]
+    state = in
+    
+    AddRoundKey(state, w[0, Nb-1])
+    
+    for round = 1 to Nr-1
+        SubBytes(state)
+        ShiftRows(state)
+        MixColumns(state)
+        AddRoundKey(state, w[round*Nb, (round+1)*Nb-1])
+    end for
+    
+    SubBytes(state)
+    ShiftRows(state)
+    AddRoundKey(state, w[Nr*Nb, (Nr+1)*Nb-1])
+    
+    out = state
+end</textarea>
+                </ul>
+            </pre>
+        </div>
+
+        <button class="dropdown-btn">Blowfish</button>
+        <div class="dropdown-content">
+            <p><strong>Overview:</strong> Blowfish is a symmetric block cipher designed by Bruce Schneier in 1993 as a free, fast alternative to existing encryption algorithms.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Block size: 64 bits</li>
+                <li>Key size: Variable, from 32 to 448 bits</li>
+                <li>16 rounds of Feistel network</li>
+                <li>Complex key schedule with large key-dependent S-boxes</li>
+                <p><strong>Process Description</strong></p>
+                <p><strong>Blowfish follows these steps:</strong></p>
+                <ol>
+                    <li>Key expansion: Converts a key of up to 448 bits into 4168 bytes of subkeys</li>
+                    <li>Data encryption:</li>
+                        <ol>
+                            <li>Split the 64-bit block into two 32-bit halves</li>
+                            <li>Run 16 rounds of a Feistel network</li>
+                            <li>Final operations and recombining the halves</li>
+                        </ol>
+                    <p><strong>Advantages</strong></p> 
+                    <li>Free and unpatented</li>
+                    <li>Fast on 32-bit processors</li>
+                    <li>Simple structure makes it easier to implement and analyze</li>
+                    <li>Variable key length provides flexibility</li>
+                    <p><strong>Use Cases</strong></p> 
+                    <li>Password hashing in Unix-like systems</li>
+                    <li>File and disk encryption</li>
+                    <li>Applications requiring fast encryption with good security</li>
+                    <p><strong>Pseudocode</strong></p>
+                    <textarea id="output-public" readonly>Blowfish-Encrypt(data, key)
+begin
+    Generate P-array (18 subkeys) and 
+    S-boxes from key
+    
+    Split data into left and right 
+    halves (L and R)
+    
+    for i = 1 to 16 do
+        L = L XOR P[i]
+        R = F(L) XOR R
+        Swap L and R
+    end for
+    
+    Swap L and R (undo last swap)
+    R = R XOR P[17]
+    L = L XOR P[18]
+    
+    Recombine L and R
+    
+    return encrypted data
+end
+
+F(x)
+begin
+    Divide x into 4 bytes: a, b, c, d
+    return ((S1[a] + S2[b]) XOR S3[c]) + S4[d]
+end</textarea>
+                </ul>
+            </pre>
+        </div>
+     <div class="container">
+        <h1>Asymmetric Encryption Algorithms</h1>
+
+        <button class="dropdown-btn">RSA (Rivest–Shamir–Adleman)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview:</strong> RSA was publicly described in 1977 by Ron Rivest, Adi Shamir, and Leonard Adleman at MIT. It was one of the first practical public-key cryptosystems and remains widely used today.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Based on the practical difficulty of factoring the product of two large prime numbers</li>
+                <li>Common key sizes: 1024, 2048, 3072, or 4096 bits</li>
+                <li>The public key is used for encryption, the private key for decryption</li>
+                <p><strong>Process Outline</strong></p>
+                <ol>
+                    <li>Choose two distinct large prime numbers p and q</li>
+                    <li>Compute n = pq (the modulus)</li>
+                    <li>Compute φ(n) = (p-1)(q-1) (the Euler's totient function)</li>
+                    <li>Choose an integer e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1</li>
+                    <li>Compute d such that d·e ≡ 1 (mod φ(n))</li>
+                    <li>The public key is (n, e), the private key is (n, d)</li>
+                </ol>
+                    <p><strong>Process Description</strong></p> 
+                    <p><strong>For encryption and decryption:</strong></p>
+                        <li>Encryption: c = m^e mod n (where m is the message, c is the ciphertext)</li>
+                        <li>Decryption: m = c^d mod n</li>
+                    <p><strong>Use Cases</strong></p> 
+                    <li>Secure communications (e.g., SSL/TLS)</li>
+                    <li>Digital signatures</li>
+                    <li>Key exchange protocols</li>
+                    <li>Secure email (S/MIME, PGP)</li>
+
+                    <p><strong>Pseudocode</strong></p>
+                    <textarea id="output-public" readonly>ECC-KeyGen()
+begin
+    Choose a suitable elliptic curve E 
+    and base point G
+    
+    Select a random integer d in [1, n-1]
+    
+    Compute Q = d * G
+    
+    return public key Q, private key d
+end
+
+ECDH-KeyExchange(private key d_A, 
+                public key Q_B)
+begin
+    Compute shared secret S = d_A * Q_B
+    
+    Derive symmetric key from S
+    
+    return shared key
+end
+
+// For actual encryption, ECC is typically
+// used with a hybrid scheme like ECIES
+// (Elliptic Curve Integrated Encryption
+// Scheme) that combines ECC with
+// symmetric encryption</textarea>
+                </ul>
+            </pre>
+        </div>
+
+<button class="dropdown-btn">ECC (Elliptic Curve Cryptography)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview:</strong> RElliptic Curve Cryptography is a modern approach to public-key cryptography based on the algebraic structure of elliptic curves over finite fields. It was proposed independently by Neal Koblitz and Victor S. Miller in 1985.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>Offers equivalent security to RSA but with much smaller key sizes</li>
+                <li>Typical key sizes: 256, 384, or 521 bits</li>
+                <li>Based on the difficulty of the Elliptic Curve Discrete Logarithm Problem (ECDLP)</li>
+                <p><strong>Core Concepts</strong></p>
+                <p>ECC uses the mathematics of elliptic curves, which are of the form:</p>
+                <p>y² = x³ + ax + b (in simplified Weierstrass form)</p>
+                <p><strong>Key Generation and Usage</strong></p>
+                <ol>
+                    <li>Choose a secure elliptic curve E over a finite field</li>
+                    <li>Select a base point G on the curve with a large order n</li>
+                    <li>Generate a private key d (random integer in [1, n-1])</li>
+                    <li>Compute the public key Q = dG (scalar multiplication)</li>
+                </ol>
+                    <p><strong>The key operations involve:</strong></p>
+                        <li>Point addition: Adding two points on the curve to get another point</li>
+                        <li>Point doubling: Adding a point to itself</li>
+                        <li>Scalar multiplication: Adding a point to itself n times (nP)</li>
+                    <p><strong>Use Cases</strong></p> 
+                    <li>TLS/SSL for secure web browsing</li>
+                    <li>Bitcoin and other cryptocurrencies</li>
+                    <li>Smart cards and IoT devices</li>
+                    <li>Mobile applications where resources are limited</li>
+                    <p><strong>Advantages</strong></p> 
+                    <li>Smaller keys (256-bit ECC ≈ 3072-bit RSA in security)</li>
+                    <li>Lower computational requirements</li>
+                    <li>Less storage and transmission requirements</li>
+                    <li>Better suited for constrained devices</li>
+
+                    <p><strong>Pseudocode</strong></p>
+                    <textarea id="output-public" readonly>ECC-KeyGen()
+begin
+    Choose a suitable elliptic curve E 
+    and base point G
+    
+    Select a random integer d in [1, n-1]
+    
+    Compute Q = d * G
+    
+    return public key Q, private key d
+end
+
+ECDH-KeyExchange(private key d_A, 
+                public key Q_B)
+begin
+    Compute shared secret S = d_A * Q_B
+    
+    Derive symmetric key from S
+    
+    return shared key
+end
+
+// For actual encryption, ECC is typically
+// used with a hybrid scheme like ECIES
+// (Elliptic Curve Integrated Encryption
+// Scheme) that combines ECC with
+// symmetric encryption</textarea>
+                </ul>
+            </pre>
+        </div>
+
+     <div class="container">
+        <h1>Hashing Algorithms</h1>
+        <button class="dropdown-btn">MD5 (Message Digest Algorithm 5)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p>MD5 was designed by Ronald Rivest in 1991 to replace MD4. It produces a 128-bit (16-byte) hash value.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>128-bit output</li>
+                <li>Processes input in 512-bit blocks</li>
+                <li>Uses bitwise operations, modular additions, and bit rotations</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>MD5 is now considered cryptographically broken due to:</strong></p>
+            <ul>
+                <li>Collision vulnerabilities (discovered in 2004)</li>
+                <li>Preimage attacks (partially successful)</li>
+                <p><strong>It should not be used for security-critical applications, but remains useful for checksums and non-security applications.</strong></p>
+            <p><strong>Process Outline</strong></p>
+            <ol>
+                <li>Pad the message to make its length a multiple of 512 bits</li>
+                <li>Initialize four 32-bit registers with fixed values</li>
+                <li>Process each 512-bit block through four rounds of operations</li>
+                <li>Output the final state of the four registers as the hash</li>
+            </ol>
+            </ul>
+        </div>
+        <button class="dropdown-btn">SHA-1 (Secure Hash Algorithm 1)</button>
+        <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p> SHA-1 was designed by the NSA and published by NIST in 1995. It produces a 160-bit (20-byte) hash value.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>160-bit output</li>
+                <li>Processes input in 512-bit blocks</li>
+                <li>Uses a compression function with four rounds</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>SHA-1 is no longer considered secure for cryptographic purposes:</strong></p>
+            <ul>
+                <li>Theoretical attacks were published in 2005</li>
+                <li>First practical collision was demonstrated in 2017</li>
+                <li>Deprecated by NIST for digital signature generation since 2013</li>
+                <p><strong>SHA-1 has been progressively replaced by SHA-2 and SHA-3 family algorithms.</strong></p>
+            <p><strong>Process Outline</strong></p>
+            <ol>
+                <li>Pad the message to ensure its length is a multiple of 512 bits</li>
+                <li>Initialize five 32-bit registers with fixed values</li>
+                <li>Process each 512-bit block through four rounds of operations</li>
+                <li>Output the final state of the five registers as the hash</li>
+            </ol>
+            </ul>
+        </div>
+                <button class="dropdown-btn">SHA-256</button>
+        <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p>SHA-256 is part of the SHA-2 family, developed by the NSA and published by NIST in 2001. It produces a 256-bit (32-byte) hash value.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>256-bit output</li>
+                <li>Processes input in 512-bit blocks</li>
+                <li>Uses eight 32-bit working variables</li>
+                <li>Employs a message schedule of 64 rounds</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>SHA-256 is currently considered secure and is widely used for:</strong></p>
+            <ul>
+                <li>Digital signatures</li>
+                <li>SSL/TLS certificates</li>
+                <li>Bitcoin mining and blockchain applications</li>
+                <li>Password hashing (with additional key stretching)</li>
+                <p><strong>It should not be used for security-critical applications, but remains useful for checksums and non-security applications.</strong></p>
+            <p><strong>Process Outline</strong></p>
+            <ol>
+                <li>Pad the message to ensure its length is a multiple of 512 bits</li>
+                <li>Initialize eight 32-bit registers with fixed values (first 32 bits of the fractional parts of the square roots of the first 8 primes)</li>
+                <li>Process each 512-bit block through 64 rounds</li>
+                <li>Update the registers after each block</li>
+                <li>Output the final state as the hash</li>
+            </ol>
+            </ul>
+        </div>
+                        <button class="dropdown-btn">SHA-512</button>
+                <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p>SHA-512 is also part of the SHA-2 family, producing a 512-bit (64-byte) hash value. It was published alongside SHA-256 but uses 64-bit operations instead of 32-bit.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>512-bit output</li>
+                <li>Processes input in 1024-bit blocks</li>
+                <li>Uses eight 64-bit working variables</li>
+                <li>Employs a message schedule of 80 rounds</li>
+                <li>Often faster than SHA-256 on 64-bit processors</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>SHA-512 offers even stronger security than SHA-256 and is recommended for:</strong></p>
+            <ul>
+                <li>Applications requiring the highest level of security</li>
+                <li>Future-proof data integrity verification</li>
+                <p><strong>Cryptographic systems dealing with highly sensitive data</strong></p>
+            <p><strong>Process Outline</strong></p>
+            <ol>
+                <li>Pad the message to ensure its length is a multiple of 1024 bits</li>
+                <li>Initialize eight 64-bit registers with fixed values (first 64 bits of the fractional parts of the square roots of the first 8 primes)</li>
+                <li>Process each 1024-bit block through 80 rounds</li>
+                <li>Update the registers after each block</li>
+                <li>Output the final state as the hash</li>
+            </ol>
+            </ul>
+        </div>
+                        <button class="dropdown-btn">SHA3-256</button>
+        <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p>SHA3-256 is part of the SHA-3 family, which was standardized by NIST in 2015. It's based on the Keccak algorithm, which won the NIST hash function competition.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>256-bit output</li>
+                <li>Based on a sponge construction, unlike the Merkle–Damgård construction used in SHA-2</li>
+                <li>Resistant to length extension attacks that affect SHA-2</li>
+                <li>Uses the Keccak-f[1600] permutation function</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>SHA3-256 is currently considered very secure, with no significant attacks:</strong></p>
+            <ul>
+                <li>Designed specifically to be different from SHA-1 and SHA-2 to withstand new types of attacks</li>
+                <li>Provides an alternative in case weaknesses are found in SHA-2</li>
+                <li>Particularly suitable for security-critical applications requiring long-term protection</li>
+                <p><strong>It should not be used for security-critical applications, but remains useful for checksums and non-security applications.</strong></p>
+            <p><strong>Process Outline</strong></p>
+            <ol>
+                <li>Pad the message according to the sponge padding scheme</li>
+                <li>Initialize the state to all zeros</li>
+                <li>Squeeze the required number of output bits from the state</li>
+                <li>Produce the final 256-bit hash value</li>
+            </ol>
+            </ul>
+        </div>
+                        <button class="dropdown-btn">SHA3-512</button>
+        <div class="dropdown-content">
+            <p><strong>Overview</strong></p>
+                <p>SHA3-512 is the 512-bit variant of the SHA-3 family, providing a longer output hash with increased security properties compared to SHA3-256.</p>
+            <p><strong>Key Features:</strong></p>
+            <ul>
+                <li>512-bit output</li>
+                <li>Uses the same sponge construction as other SHA-3 variants</li>
+                <li>Higher capacity and security margin than SHA3-256</li>
+                <li>Still based on the same Keccak-f[1600] permutation</li>
+            </ul>
+            <p><strong>Security Status</strong></p>
+            <p><strong>SHA3-512 offers the highest security level in the SHA-3 family:</strong></p>
+            <ul>
+                <li>Provides 256 bits of security against collision attacks</li>
+                <li>Suitable for the most demanding security applications</li>
+                <li>Recommended for critical infrastructure and long-term data protection</li>
+                <li>Particularly valuable for quantum-resistant cryptographic protocols</li>
+                <p><strong>It should not be used for security-critical applications, but remains useful for checksums and non-security applications.</strong></p>
+            <p><strong>When to Use SHA3-512 over SHA-512</strong></p>
+            <ul>
+                <li>When defense against side-channel attacks is important</li>
+                <li>When protection against potential future vulnerabilities in SHA-2 is desired</li>
+                <li>In systems that need to be future-proof against quantum computing advances</li>
+                <li>For applications that can benefit from the sponge construction's flexibility</li>
+            </ul>
+            </ul>
+        </div>
+
+    <script>
+        const buttons = document.querySelectorAll(".dropdown-btn");
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.classList.toggle("active");
+                const content = btn.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+    </script>
+      <style>
+    textarea {
+      background-color: #FF0080;
+    }
+  </style>
+</body>
+</html>

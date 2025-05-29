@@ -1,0 +1,119 @@
+body {
+  background-color: #000;
+  color: #FF0080;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Navbar */
+.nav-links li a.active {
+  background-color: #FF0080;
+  color: black;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000;
+  border-bottom: 2px solid #FF0080;
+  font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title {
+  font-weight: bold;
+  color: #FF0080;
+  margin-right: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #FF0080;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.nav-links li a:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.nav-links i {
+  margin-right: 6px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 30px 0 10px 0;
+  color: #FF0080;
+  text-shadow: 0 0 5px #000;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #FF0080;
+}
+
+.dropdown-btn {
+    background-color: #896ad2;
+    color: #000;
+    padding: 14px;
+    margin-top: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+}
+
+.dropdown-btn:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 20px;
+    background-color: #000;
+    border: 1px solid #000;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dropdown-content p, .dropdown-content ul {
+    margin: 10px 0;
+}
+
+pre {
+    background: #000;
+    padding: 10px;
+    overflow-x: auto;
+    border-radius: 4px;
+}

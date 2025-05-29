@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Root Home Page</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="title">[CryptMatrix 2.0]</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('roothome_page') }}" class="active"><i class="icon-home">🏠</i> root@home</a></li>
+      <li><a href="{{ url_for('symmetric_page') }}"><i class="icon-shield">🛡️</i> symmetric</a></li>
+      <li><a href="{{ url_for('asymmetric_page') }}"><i class="icon-key">🔑</i> asymmetric</a></li>
+      <li><a href="{{ url_for('hashing_page') }}"><i class="icon-hash">#</i> hashing</a></li>
+      <li><a href="{{ url_for('algorithms_page') }}"><i class="icon-info">ℹ️</i> algorithms</a></li>
+    </ul>
+  </nav>
+  
+    </div>
+  </div>
+    <div class="crypto-container">
+    <h2>CRYPTMATRIX</h2>
+    <p class="tagline">Where cryptography meets digital alchemy. Secure your data with advanced encryption algorithms.</p>
+    <hr>
+    <p class="description">Navigate the digital world with confidence, protected by quantum-resistant cryptographic mechanisms.</p>
+
+    <div class="floating-box">
+<pre>
+# Initializing security protocols...
+$ ./secure_transmission.sh --encrypt --level=quantum
+> System ready. Neural interface activated.
+> Cryptographic shields: ONLINE
+> Breach detection: ACTIVE
+> Choose your encryption algorithm to continue...
+</pre>
+    </div>
+  </div>
+
+  
+  <div class="cards-container">
+    <div class="card symmetric">
+      <h2>🔐SYMMETRIC_ENC</h2>
+      <p>One key to rule them all. Fast and secure encryption using the same key for both operations.</p>
+      <ul>
+        <li>AES-256</li>
+        <li>DES/3DES</li>
+        <li>Blowfish</li>
+      </ul>
+      <a href="{{ url_for('symmetric_page') }}">
+      <button>ACCESS SYMMETRIC</button>
+      </a>
+    </div>
+
+    <div class="card asymmetric">
+      <h2>🔑ASYMMETRIC_ENC</h2>
+      <p>Public/private key duality. The mathematical foundation of secure digital communications.</p>
+      <ul>
+        <li>RSA-2048</li>
+        <li>ECC-P256</li>
+        <li>...</li>
+        
+
+      </ul>
+      <a href="{{ url_for('asymmetric_page') }}">
+      <button>ACCESS ASYMMETRIC</button>
+      </a>
+    </div>
+
+    <div class="card hash">
+      <h2>#HASH_FUNCTIONS</h2>
+      <p>Digital fingerprints. One-way transformations to verify data integrity and authenticity.</p>
+      <ul>
+        <li>SHA-256</li>
+        <li>SHA-512</li>
+        <li>BLAKE2</li>
+      </ul>
+      <a href="{{ url_for('hashing_page') }}">
+      <button>ACCESS HASHING</button>
+      </a>
+    </div>
+
+    <div class="card chat">
+      <h2>💬SECURE_CHAT</h2>
+      <p>Encrypted communications. Exchange messages that only the intended recipient can decode.</p>
+      <ul>
+        <li>RSA Key Exchange</li>
+        <li>AES-256 Encryption</li>
+        <li>Digital Signatures</li>
+      </ul>
+      <a href="securechat.html">
+        <button>ACCESS SECURE CHAT</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="info-box">
+  <h2><span class="info-icon">ℹ️</span> THE_CRYPTOGRAPHY_REALITY</h2>
+  <p><span class="system-label">[SYSTEM]</span> What is cryptography? It's the art of hiding in plain sight.</p>
+  <p>Modern cryptography operates on three fundamental principles:</p>
+
+  <div class="principles">
+    <div class="principle-card">
+      <h3>[01] <span class="highlight">Confidentiality:</span></h3>
+      <p>Ensuring information remains secret from unauthorized parties</p>
+    </div>
+    <div class="principle-card">
+      <h3>[02] <span class="highlight">Integrity:</span></h3>
+      <p>Verifying data has not been altered during transmission</p>
+    </div>
+    <div class="principle-card">
+      <h3>[03] <span class="highlight">Authentication:</span></h3>
+      <p>Confirming the claimed identity of users</p>
+    </div>
+  </div>
+
+  <p>Choose your method of protection:</p>
+
+  <p class="terminal-text">
+    To dig deeper into the cryptographic matrix, visit <a href="#">algorithm_info</a> for technical specifications.
+  </p>
+
+  <p class="terminal-input">user@cryptmatrix:~/secure$</p>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+body {
+  background-color: #000;
+  color: #FFF43D;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Navbar */
+.nav-links li a.active {
+  background-color: #FFF43D;
+  color: black;
+  font-weight: bold;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #000;
+  border-bottom: 2px solid #FFF43D;
+  font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.title {
+  font-weight: bold;
+  color: #FFF43D;
+  margin-right: 30px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #FFF43D;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.nav-links li a:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+.nav-links i {
+  margin-right: 6px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 30px 0 10px 0;
+  color: #FFF43D;
+  text-shadow: 0 0 5px #FFF43D;
+}
+
+/* Centering layout */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Hash Generator */
+.hash-container {
+  border: 2px solid #FFF43D;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #010;
+  box-shadow: 0 0 20px #FFF43D;
+  max-width: 800px;
+  width: 100%;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hash-container:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 30px #FFF43D;
+}
+
+.hash-container h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #FFF43D;
+  padding-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+select,
+textarea,
+button {
+  background-color: #000;
+  color: #FFF43D;
+  border: 1px solid #FFF43D;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+button {
+  background-color: #220;
+  border: 2px solid #ffaa00;
+  color: #ffaa00;
+  font-weight: bold;
+  cursor: pointer;
+  transition: none;
+}
+
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #FFF43D;
+}
+
+/* Hash Result Box */
+.result-box {
+  background-color: #000000cc;
+  border: 2px solid #FFF43D;
+  border-radius: 10px;
+  color: #FFF43D;
+  padding: 20px;
+  width: 100%;
+  max-width: 700px;
+  font-family: 'Courier New', Courier, monospace;
+  box-shadow: 0 0 15px #FFF43D;
+  transition: all 0.3s ease;
+}
+
+.result-box:hover {
+  box-shadow: 0 0 30px #FFF43D;
+  transform: scale(1.02);
+}
+
+.result-box h2 {
+  margin-top: 0;
+  color: #FFF43D;
+}
+
+.result-box input[type="text"] {
+  width: 100%;
+  background-color: #000;
+  color: #FFF43D;
+  border: 1px solid #FFF43D;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: inherit;
+  font-size: 1em;
+  border-radius: 5px;
+}
+
+/* Copy Button */
+#copyButton {
+  background-color: black;
+  color: #00aaff;
+  border: 2px solid #00aaff;
+  padding: 10px 20px;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#copyButton:hover {
+  background-color: #00aaff;
+  color: black;
+}
+

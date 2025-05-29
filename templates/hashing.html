@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hashing Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='hashing.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <span class="title">[CryptMatrix 2.0]</span>
+    <ul class="nav-links">
+      <li><a href="{{ url_for('symmetric_page') }}"><i class="icon-home">🏠</i> root@home</a></li>
+      <li><a href="{{ url_for('symmetric_page') }}"><i class="icon-shield">🛡️</i> symmetric</a></li>
+      <li><a href="{{ url_for('asymmetric_page') }}"><i class="icon-key">🔑</i> asymmetric</a></li>
+      <li><a href="{{ url_for('hashing_page') }}" class="active"><i class="icon-hash">#</i> hashing</a></li>
+      <li><a href="{{ url_for('algorithms_page') }}"><i class="icon-info">ℹ️</i> algorithms</a></li>
+    </ul>
+  </nav>
+
+  <h1>Hashing</h1>
+  <div class="hash-container">
+    <h2>Hash Generator</h2>
+    <div class="form-row">
+      <div>
+        <label for="algorithm">Algorithm</label>
+        <select id="algorithm">
+          <option>MD5</option>
+          <option>SHA-1</option>
+          <option>SHA-256</option>
+          <option>SHA3-256</option>
+          <option>SHA-512</option>
+          <option>SHA3-512</option>
+        </select>
+      </div>
+      <div>
+        <label for="mode">Mode</label>
+        <select id="mode">
+          <option>Text</option>
+          <option>File</option>
+        </select>
+      </div>
+    </div>
+      <textarea id="textInput" placeholder="Enter your text here..."></textarea>
+      <input type="file" id="fileInput" style="display: none;" />
+      <button id="generateButton">Generate Hash</button>
+  </div>
+
+  <!-- RESULT BOX -->
+  <div class="result-box" id="resultBox" style="display: none;">
+    <h2>Hash Result</h2>
+    <p><strong>Hash Value</strong></p>
+    <input type="text" id="hashOutput" readonly />
+    <button id="copyButton">COPY TO CLIPBOARD</button>
+  </div>
+
+  <script>
+document.getElementById("mode").addEventListener("change", function () {
+  const mode = this.value;
+  const textArea = document.getElementById("textInput");
+  const fileInput = document.getElementById("fileInput");
+
+  if (mode === "Text") {
+    textArea.style.display = "block";
+    fileInput.style.display = "none";
+  } else {
+    textArea.style.display = "none";
+    fileInput.style.display = "block";
+  }
+});
+
+document.getElementById("generateButton").addEventListener("click", function () {
+  const algorithm = document.getElementById("algorithm").value;
+  const mode = document.getElementById("mode").value;
+  const formData = new FormData();
+
+  formData.append("algorithm", algorithm);
+  formData.append("mode", mode);
+
+  if (mode === "Text") {
+    const text = document.getElementById("textInput").value;
+    formData.append("text", text);
+  } else {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) {
+      alert("Please select a file.");
+      return;
+    }
+    formData.append("file", file);
+  }
+
+  fetch("/generate_hash", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const resultBox = document.getElementById("resultBox");
+      const hashOutput = document.getElementById("hashOutput");
+
+      if (data.hash) {
+        hashOutput.value = data.hash;
+        resultBox.style.display = "block";
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .catch((err) => {
+      console.error("Error:", err);
+      alert("Something went wrong.");
+    });
+});
+
+document.getElementById("copyButton").addEventListener("click", function () {
+  const output = document.getElementById("hashOutput");
+  output.select();
+  document.execCommand("copy");
+  alert("Copied to clipboard!");
+});
+</script>
+</body>
+</html>
